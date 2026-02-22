@@ -36,6 +36,7 @@ Add the following to the modules array in your config/config.js file:
     config: {
         apiKey: "YOUR_ETORO_API_KEY",
         userKey: "YOUR_ETORO_USER_KEY",
+	demo: false,
         updateInterval: 600000, // 10 minutes
     }
 },
@@ -45,7 +46,8 @@ Add the following to the modules array in your config/config.js file:
 | Option | Description |
 | --- | --- |
 | apiKey | Required. Your eToro Public API Key. |
-| userKey | Required. Your eToro User Key. |
+| userKey | Required. Your eToro Generated User Key. Make sure to un-pick demo to use your real account data |
+| demo | true if your generated user key is just for the demo application, otherwise false to use real account data
 | updateInterval | How often to fetch data (in milliseconds). Default is 10 mins. |
 
 ## CSS Styling

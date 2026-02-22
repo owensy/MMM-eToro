@@ -1,0 +1,51 @@
+/* MMM-eToro.css */
+
+.etoro-container {
+    padding: 10px;
+    text-align: right;
+    min-width: 200px;
+}
+
+.etoro-header {
+    font-family: "Roboto Condensed", Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    line-height: 18px;
+    text-transform: uppercase;
+    color: #888; 
+    margin-bottom: 2px;
+}
+
+.etoro-value {
+    font-family: "Roboto", Arial, Helvetica, sans-serif;
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 32px;
+    color: #fff;
+    margin-bottom: 5px;
+}
+
+.etoro-profit {
+    font-family: "Roboto Condensed", Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+}
+
+/* Color coding for performance */
+.etoro-profit.positive {
+    color: #2ecc71; /* eToro Green */
+}
+
+.etoro-profit.negative {
+    color: #e74c3c; /* Alert Red */
+}
+
+/* Trend indicators */
+.etoro-profit.positive::before {
+    content: "▲ ";
+    font-size: 12px;
+}
+
+.etoro-profit.negative::before {
+    content: "▼ ";
+    font-size: 12px;
+}

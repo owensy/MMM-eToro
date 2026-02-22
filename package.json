@@ -2,7 +2,11 @@
   "name": "MMM-eToro",
   "version": "1.0.0",
   "description": "eToro portfolio tracker for MagicMirror²",
+  "main": "MMM-eToro.js",
   "dependencies": {
-    "axios": "^1.6.0"
-  }
+    "axios": "^1.6.0",
+    "uuid": "^9.0.1"
+  },
+  "author": "Owensy",
+  "license": "MIT"
 }

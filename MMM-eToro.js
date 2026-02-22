@@ -2,7 +2,12 @@ Module.register("MMM-eToro", {
     defaults: {
         apiKey: "",
         userKey: "",
-        updateInterval: 10 * 60 * 1000, // 10 minutes
+        demo: true,
+        updateInterval: 10 * 60 * 1000,
+    },
+
+    getStyles: function() {
+        return ["MMM-eToro.css"];
     },
 
     start: function() {
@@ -16,21 +21,29 @@ Module.register("MMM-eToro", {
 
     getDom: function() {
         const wrapper = document.createElement("div");
+
         if (!this.portfolioData) {
-            wrapper.innerHTML = "Loading eToro...";
+            wrapper.innerHTML = "Fetching eToro Data...";
+            wrapper.className = "dimmed light small";
             return wrapper;
         }
 
         const data = this.portfolioData;
-        const profitClass = data.totalProfit >= 0 ? "positive" : "negative";
+        
+        // Defensive coding: If eToro sends nothing, use 0 instead of crashing
+        const equity = data.totalValue || data.equity || 0;
+        const profit = data.totalProfit || data.profit || 0;
+        const percent = data.profitPercentage || data.gain || 0;
+
+        const profitClass = profit >= 0 ? "positive" : "negative";
 
         wrapper.innerHTML = `
             <div class="etoro-container">
-                <div class="etoro-header">Portfolio Value</div>
-                <div class="etoro-value">$${data.totalValue.toLocaleString()}</div>
+                <div class="etoro-header">eToro Portfolio</div>
+                <div class="etoro-value">$${Number(equity).toLocaleString(undefined, {minimumFractionDigits: 2})}</div>
                 <div class="etoro-profit ${profitClass}">
-                    ${data.totalProfit >= 0 ? "+" : ""}$${data.totalProfit.toLocaleString()} 
-                    (${data.profitPercentage}%)
+                    ${profit >= 0 ? "+" : ""}$${Number(profit).toLocaleString(undefined, {minimumFractionDigits: 2})} 
+                    (${Number(percent).toFixed(2)}%)
                 </div>
             </div>
         `;
@@ -39,10 +52,10 @@ Module.register("MMM-eToro", {
 
     socketNotificationReceived: function(notification, payload) {
         if (notification === "ETORO_DATA_RESULT") {
+            // Log to the browser console so you can see the raw data
+            console.log("MMM-eToro received data:", payload);
             this.portfolioData = payload;
             this.updateDom();
         }
-    },
-
-    getStyles: function() { return ["MMM-eToro.css"]; }
+    }
 });
