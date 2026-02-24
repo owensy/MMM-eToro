@@ -1,17 +1,15 @@
 Module.register("MMM-eToro", {
-    defaults: {
-        apiKey: "",
-        userKey: "",
-        demo: true,
-        updateInterval: 10 * 60 * 1000,
+    defaults: { 
+        updateInterval: 5 * 60 * 1000,
+        header: "eToro Portfolio" 
     },
-
-    getStyles: function() {
-        return ["MMM-eToro.css"];
-    },
+    
+    getStyles: function() { return ["MMM-eToro.css"]; },
+    getHeader: function() { return this.config.header; },
 
     start: function() {
-        this.portfolioData = null;
+        this.portfolioData = []; 
+        this.loaded = false;
         this.sendSocketNotification("GET_ETORO_DATA", this.config);
         
         setInterval(() => {
@@ -22,39 +20,55 @@ Module.register("MMM-eToro", {
     getDom: function() {
         const wrapper = document.createElement("div");
 
-        if (!this.portfolioData) {
-            wrapper.innerHTML = "Fetching eToro Data...";
-            wrapper.className = "dimmed light small";
+        if (!this.loaded) {
+            wrapper.innerHTML = "Syncing Assets...";
+            wrapper.className = "dimmed xsmall";
             return wrapper;
         }
 
-        const data = this.portfolioData;
+        if (this.portfolioData.length === 0) {
+            wrapper.innerHTML = "No Open Positions Found";
+            wrapper.className = "dimmed xsmall";
+            return wrapper;
+        }
+
+        const table = document.createElement("table");
+        table.className = "xsmall etoro-table";
         
-        // Defensive coding: If eToro sends nothing, use 0 instead of crashing
-        const equity = data.totalValue || data.equity || 0;
-        const profit = data.totalProfit || data.profit || 0;
-        const percent = data.profitPercentage || data.gain || 0;
+        const thead = document.createElement("thead");
+        thead.innerHTML = `
+            <tr class="dimmed">
+                <th></th>
+                <th class="text-left">Asset</th>
+                <th class="text-right">Value</th>
+                <th class="text-right">P/L</th>
+            </tr>`;
+        table.appendChild(thead);
 
-        const profitClass = profit >= 0 ? "positive" : "negative";
+        const tbody = document.createElement("tbody");
+        this.portfolioData.forEach(item => {
+            const row = document.createElement("tr");
+            const pnlClass = item.profit >= 0 ? "positive" : "negative";
+            const pnlSign = item.profit >= 0 ? "+" : "";
 
-        wrapper.innerHTML = `
-            <div class="etoro-container">
-                <div class="etoro-header">eToro Portfolio</div>
-                <div class="etoro-value">$${Number(equity).toLocaleString(undefined, {minimumFractionDigits: 2})}</div>
-                <div class="etoro-profit ${profitClass}">
-                    ${profit >= 0 ? "+" : ""}$${Number(profit).toLocaleString(undefined, {minimumFractionDigits: 2})} 
-                    (${Number(percent).toFixed(2)}%)
-                </div>
-            </div>
-        `;
+            row.innerHTML = `
+                <td class="logo-cell"><img src="${item.logo}" class="stock-logo"></td>
+                <td class="stock-name bright">${item.name}</td>
+                <td class="text-right">$${item.value.toLocaleString(undefined, {minimumFractionDigits: 2})}</td>
+                <td class="text-right ${pnlClass}">${pnlSign}$${item.profit.toLocaleString(undefined, {minimumFractionDigits: 2})}</td>
+            `;
+            tbody.appendChild(row);
+        });
+
+        table.appendChild(tbody);
+        wrapper.appendChild(table);
         return wrapper;
     },
 
     socketNotificationReceived: function(notification, payload) {
         if (notification === "ETORO_DATA_RESULT") {
-            // Log to the browser console so you can see the raw data
-            console.log("MMM-eToro received data:", payload);
             this.portfolioData = payload;
+            this.loaded = true; 
             this.updateDom();
         }
     }

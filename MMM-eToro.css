@@ -1,51 +1,60 @@
 /* MMM-eToro.css */
 
-.etoro-container {
-    padding: 10px;
-    text-align: right;
+.etoro-table {
+    border-collapse: collapse;
+    width: 100%;
     min-width: 200px;
 }
 
-.etoro-header {
-    font-family: "Roboto Condensed", Arial, Helvetica, sans-serif;
-    font-size: 14px;
-    line-height: 18px;
+.etoro-table thead tr {
+    border-bottom: 1px solid #333;
+}
+
+.etoro-table th {
     text-transform: uppercase;
-    color: #888; 
-    margin-bottom: 2px;
+    font-size: 10px; /* Small headers */
+    letter-spacing: 1px;
+    padding: 0 8px 5px 8px;
+    color: #888;
 }
 
-.etoro-value {
-    font-family: "Roboto", Arial, Helvetica, sans-serif;
-    font-weight: 400;
-    font-size: 28px;
-    line-height: 32px;
-    color: #fff;
-    margin-bottom: 5px;
+.etoro-table td {
+    padding: 4px 8px;
+    line-height: 1.2;
+    vertical-align: middle;
 }
 
-.etoro-profit {
-    font-family: "Roboto Condensed", Arial, Helvetica, sans-serif;
-    font-size: 18px;
-    font-weight: 400;
+.logo-cell {
+    width: 20px;
+    padding-right: 0 !important;
 }
 
-/* Color coding for performance */
-.etoro-profit.positive {
-    color: #2ecc71; /* eToro Green */
+.stock-logo {
+    width: 16px; /* Small, crisp logos */
+    height: 16px;
+    border-radius: 50%;
+    vertical-align: middle;
+    background-color: rgba(255, 255, 255, 0.1);
+    display: block;
 }
 
-.etoro-profit.negative {
-    color: #e74c3c; /* Alert Red */
+.stock-name {
+    text-align: left;
+    white-space: nowrap;
 }
 
-/* Trend indicators */
-.etoro-profit.positive::before {
-    content: "▲ ";
-    font-size: 12px;
+.text-right {
+    text-align: right;
 }
 
-.etoro-profit.negative::before {
-    content: "▼ ";
-    font-size: 12px;
+.text-left {
+    text-align: left;
+}
+
+.etoro-table .positive {
+    color: #4cd964;
+}
+
+.etoro-table .negative {
+    color: #ff3b30;
 }

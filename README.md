@@ -1,13 +1,19 @@
 # MMM-eToro
 
+[![MagicMirror² Module](https://img.shields.io/badge/MagicMirror%C2%B2-Module-blue)](https://github.com/MagicMirrorOrg/MagicMirror)
+
 A MagicMirror² module to display your eToro portfolio summary, including total equity, current profit/loss, and percentage gains in real-time.
+
+![Screenshot](https://github.com/user-attachments/assets/89ce29b6-63e0-4188-adf9-6493c2a45149)
 
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 
 ## Features
-* **Real-time Portfolio Value:** Displays your total equity.
-* **Profit Tracking:** Shows total gain/loss with color-coded indicators (Green for profit, Red for loss).
-* **Privacy First:** API keys are handled via your main config, never hardcoded.
+* **Individual Asset Tracking:** Shows each stock, ETF, or crypto in your portfolio.
+* **Smart Aggregation:** Automatically groups multiple open positions of the same asset into a single row.
+* **Automated Metadata:** Dynamically fetches asset names and high-quality SVG logos from the eToro Market API.
+* **Profit/Loss Monitoring:** Real-time tracking of net profit with color-coded (Green/Red) status.
+* **Clean Aesthetic:** Designed to match the native MagicMirror² UI using subtle typography and circular icons.
 
 ## Prerequisites
 1.  An eToro account.
@@ -36,22 +42,27 @@ Add the following to the modules array in your config/config.js file:
     config: {
         apiKey: "YOUR_ETORO_API_KEY",
         userKey: "YOUR_ETORO_USER_KEY",
-	demo: false,
-        updateInterval: 600000, // 10 minutes
+        demo: false,
+        updateInterval: 600000
     }
 },
 
 ## Configuration Options
 
-| Option | Description |
-| --- | --- |
-| apiKey | Required. Your eToro Public API Key. |
-| userKey | Required. Your eToro Generated User Key. Make sure to un-pick demo to use your real account data |
-| demo | true if your generated user key is just for the demo application, otherwise false to use real account data
-| updateInterval | How often to fetch data (in milliseconds). Default is 10 mins. |
+## Configuration Options
+
+| Option | Default | Description |
+| :--- | :--- | :--- |
+| `apiKey` | `None` | **Required.** Your eToro Public API Key. |
+| `userKey` | `None` | **Required.** Your eToro User Key. Make sure this matches your `demo` setting. |
+| `demo` | `false` | Set to `true` if you are using your Virtual Portfolio/Demo account keys. |
+| `updateInterval` | `600000` | How often to fetch data (in ms). Default is 10 minutes (600,000ms). |
 
 ## CSS Styling
 Customize the look by editing MMM-eToro.css. It uses standard MagicMirror classes for a native look.
+
+## Credits
+Data provided by eToro Public API
 
 ## Disclaimer
 This module is for informational purposes only. Use it at your own risk. The developer is not responsible for any financial decisions made based on the data displayed.
