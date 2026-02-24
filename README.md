@@ -2,11 +2,11 @@
 
 [![MagicMirror² Module](https://img.shields.io/badge/MagicMirror%C2%B2-Module-blue)](https://github.com/MagicMirrorOrg/MagicMirror)
 
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+
 A MagicMirror² module to display your eToro portfolio summary, including total equity, current profit/loss, and percentage gains in real-time.
 
 ![Screenshot](https://github.com/user-attachments/assets/89ce29b6-63e0-4188-adf9-6493c2a45149)
-
-![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 
 ## Features
 * **Individual Asset Tracking:** Shows each stock, ETF, or crypto in your portfolio.
@@ -26,7 +26,7 @@ A MagicMirror² module to display your eToro portfolio summary, including total 
     cd ~/MagicMirror/modules
 
 2.  Clone this repository:
-    git clone https://github.com/YOUR_USERNAME/MMM-eToro.git
+    git clone https://github.com/owensy/MMM-eToro.git
 
 3.  Enter the module directory and install dependencies:
     cd MMM-eToro
@@ -46,8 +46,6 @@ Add the following to the modules array in your config/config.js file:
         updateInterval: 600000
     }
 },
-
-## Configuration Options
 
 ## Configuration Options
 
