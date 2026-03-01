@@ -6,7 +6,6 @@
 A MagicMirror² module to display your eToro portfolio summary, including total equity, current profit/loss, and percentage gains in real-time.
 
 ![MMM-eToro](screenshots/eToro.png)
-![Screenshot](https://github.com/user-attachments/assets/89ce29b6-63e0-4188-adf9-6493c2a45149)
 
 ## Features
 * **Individual Asset Tracking:** Shows each stock, ETF, or crypto in your portfolio.
