@@ -1,11 +1,11 @@
 # MMM-eToro
 
 [![MagicMirror² Module](https://img.shields.io/badge/MagicMirror%C2%B2-Module-blue)](https://github.com/MagicMirrorOrg/MagicMirror)
-
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 
 A MagicMirror² module to display your eToro portfolio summary, including total equity, current profit/loss, and percentage gains in real-time.
 
+![MMM-eToro](screenshots/eToro.png)
 ![Screenshot](https://github.com/user-attachments/assets/89ce29b6-63e0-4188-adf9-6493c2a45149)
 
 ## Features
@@ -36,6 +36,7 @@ A MagicMirror² module to display your eToro portfolio summary, including total 
 
 Add the following to the modules array in your config/config.js file:
 
+```javascript
 {
     module: "MMM-eToro",
     position: "top_right",
@@ -46,6 +47,7 @@ Add the following to the modules array in your config/config.js file:
         updateInterval: 600000
     }
 },
+```
 
 ## Configuration Options
 
