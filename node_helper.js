@@ -1,5 +1,4 @@
 const NodeHelper = require("node_helper");
-const axios = require("axios");
 const { v4: uuidv4 } = require("uuid");
 
 module.exports = NodeHelper.create({
@@ -10,32 +9,30 @@ module.exports = NodeHelper.create({
     async fetchEtoroData(config) {
         const pnlUrl = "https://public-api.etoro.com/api/v1/trading/info/real/pnl";
         const metaUrl = "https://public-api.etoro.com/api/v1/market-data/instruments";
-        
-        try {
-            const headers = {
-                "x-api-key": config.apiKey,
-                "x-user-key": config.userKey,
-                "x-request-id": uuidv4()
-            };
+        const headers = {
+            "x-api-key": config.apiKey,
+            "x-user-key": config.userKey,
+            "x-request-id": uuidv4(),
+            "Accept": "application/json"
+        };
 
-            const pnlRes = await axios.get(pnlUrl, { headers });
-            const positions = pnlRes.data.clientPortfolio.positions || [];
-            
-            // REMOVED FILTER: We now take everything with an active balance
+        try {
+            // Fetch PnL
+            const pnlRes = await fetch(pnlUrl, { headers });
+            const pnlData = await pnlRes.json();
+            const positions = pnlData.clientPortfolio?.positions || [];
             const activePositions = positions.filter(p => p.amount > 0);
-            
+
             if (activePositions.length === 0) {
                 return this.sendSocketNotification("ETORO_DATA_RESULT", []);
             }
 
-            // Bulk Lookup using your discovery
+            // Bulk Lookup Metadata
             const uniqueIds = [...new Set(activePositions.map(p => p.instrumentID))];
-            const metaRes = await axios.get(metaUrl, {
-                headers,
-                params: { instrumentIds: uniqueIds.join(",") }
-            });
+            const metaRes = await fetch(`${metaUrl}?instrumentIds=${uniqueIds.join(",")}`, { headers });
+            const metaData = await metaRes.json();
 
-            const instrumentMeta = metaRes.data.instrumentDisplayDatas || [];
+            const instrumentMeta = metaData.instrumentDisplayDatas || [];
             const metaMap = {};
             instrumentMeta.forEach(i => {
                 const svgImg = i.images.find(img => img.uri.endsWith(".svg"));
@@ -45,25 +42,24 @@ module.exports = NodeHelper.create({
                 };
             });
 
-            const grouped = {};
-            activePositions.forEach(pos => {
+            const grouped = Object.values(activePositions.reduce((acc, pos) => {
                 const id = pos.instrumentID;
-                if (!grouped[id]) {
-                    grouped[id] = { 
+                if (!acc[id]) {
+                    acc[id] = { 
                         name: metaMap[id]?.name || `ID:${id}`, 
                         logo: metaMap[id]?.logo || "",
                         value: 0, 
                         profit: 0 
                     };
                 }
-                grouped[id].value += pos.amount;
-                // Path check for the 2026 PnL structure
-                grouped[id].profit += (pos.unrealizedPnL ? pos.unrealizedPnL.pnL : 0);
-            });
+                acc[id].value += pos.amount;
+                acc[id].profit += (pos.unrealizedPnL ? pos.unrealizedPnL.pnL : 0);
+                return acc;
+            }, {}));
 
-            this.sendSocketNotification("ETORO_DATA_RESULT", Object.values(grouped));
+            this.sendSocketNotification("ETORO_DATA_RESULT", grouped);
         } catch (error) {
-            console.error("[MMM-eToro] Helper Error:", error.message);
+            console.error("[MMM-eToro] Fetch Error:", error);
         }
     }
 });

@@ -21,15 +21,17 @@ A MagicMirror² module to display your eToro portfolio summary, including total 
 
 ## Installation
 
-1.  Navigate to your MagicMirror modules directory:
-    cd ~/MagicMirror/modules
+```bash
+cd ~/MagicMirror/modules && git clone [https://github.com/owensy/MMM-eToro.git](https://github.com/owensy/MMM-eToro.git) && cd MMM-eToro && npm install
+```
 
-2.  Clone this repository:
-    git clone https://github.com/owensy/MMM-eToro.git
+## Update
 
-3.  Enter the module directory and install dependencies:
-    cd MMM-eToro
-    npm install
+To update the module to the latest version, navigate to the module directory and pull the changes:
+
+```bash
+cd ~/MagicMirror/modules/MMM-eToro && git pull
+```
 
 ## Configuration
 
