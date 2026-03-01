@@ -17,7 +17,6 @@ module.exports = NodeHelper.create({
         };
 
         try {
-            // Fetch PnL
             const pnlRes = await fetch(pnlUrl, { headers });
             const pnlData = await pnlRes.json();
             const positions = pnlData.clientPortfolio?.positions || [];
@@ -27,7 +26,6 @@ module.exports = NodeHelper.create({
                 return this.sendSocketNotification("ETORO_DATA_RESULT", []);
             }
 
-            // Bulk Lookup Metadata
             const uniqueIds = [...new Set(activePositions.map(p => p.instrumentID))];
             const metaRes = await fetch(`${metaUrl}?instrumentIds=${uniqueIds.join(",")}`, { headers });
             const metaData = await metaRes.json();
@@ -42,7 +40,7 @@ module.exports = NodeHelper.create({
                 };
             });
 
-            const grouped = Object.values(activePositions.reduce((acc, pos) => {
+            const groupedMap = activePositions.reduce((acc, pos) => {
                 const id = pos.instrumentID;
                 if (!acc[id]) {
                     acc[id] = { 
@@ -55,7 +53,13 @@ module.exports = NodeHelper.create({
                 acc[id].value += pos.amount;
                 acc[id].profit += (pos.unrealizedPnL ? pos.unrealizedPnL.pnL : 0);
                 return acc;
-            }, {}));
+            }, {});
+
+            const grouped = Object.values(groupedMap).map(item => {
+                const costBasis = item.value - item.profit;
+                item.percentage = costBasis !== 0 ? (item.profit / costBasis) * 100 : 0;
+                return item;
+            });
 
             this.sendSocketNotification("ETORO_DATA_RESULT", grouped);
         } catch (error) {

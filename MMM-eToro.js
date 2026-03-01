@@ -49,13 +49,18 @@ Module.register("MMM-eToro", {
         this.portfolioData.forEach(item => {
             const row = document.createElement("tr");
             const pnlClass = item.profit >= 0 ? "positive" : "negative";
-            const pnlSign = item.profit >= 0 ? "+" : "";
+            const pnlSign = item.profit >= 0 ? "+" : "-";
+            const pnlValue = Math.abs(item.profit).toLocaleString(undefined, {minimumFractionDigits: 2});
+            const percValue = Math.abs(item.percentage).toFixed(2);
 
             row.innerHTML = `
                 <td class="logo-cell"><img src="${item.logo}" class="stock-logo"></td>
                 <td class="stock-name bright">${item.name}</td>
                 <td class="text-right">$${item.value.toLocaleString(undefined, {minimumFractionDigits: 2})}</td>
-                <td class="text-right ${pnlClass}">${pnlSign}$${item.profit.toLocaleString(undefined, {minimumFractionDigits: 2})}</td>
+                <td class="text-right ${pnlClass}">
+                    ${pnlSign}$${pnlValue}<br>
+                    <span class="percentage-text">(${pnlSign}${percValue}%)</span>
+                </td>
             `;
             tbody.appendChild(row);
         });

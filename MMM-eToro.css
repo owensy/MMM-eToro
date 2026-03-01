@@ -1,5 +1,3 @@
-/* MMM-eToro.css */
-
 .etoro-table {
     border-collapse: collapse;
     width: 100%;
@@ -12,7 +10,7 @@
 
 .etoro-table th {
     text-transform: uppercase;
-    font-size: 10px; /* Small headers */
+    font-size: 10px;
     letter-spacing: 1px;
     padding: 0 8px 5px 8px;
     color: #888;
@@ -30,7 +28,7 @@
 }
 
 .stock-logo {
-    width: 16px; /* Small, crisp logos */
+    width: 16px;
     height: 16px;
     border-radius: 50%;
     vertical-align: middle;
@@ -47,14 +45,19 @@
     text-align: right;
 }
 
-.text-left {
-    text-align: left;
-}
-
+/* These classes now apply to the whole cell including the percentage */
 .etoro-table .positive {
     color: #4cd964;
 }
 
 .etoro-table .negative {
     color: #ff3b30;
+}
+
+.percentage-text {
+    font-size: 0.85em;
+    display: block;
+    margin-top: -2px;
+    color: inherit; /* This ensures it turns green/red like the value above it */
+    opacity: 0.8;   /* Optional: keeps it slightly softer than the main number */
 }
