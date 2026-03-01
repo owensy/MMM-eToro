@@ -1,7 +1,8 @@
 Module.register("MMM-eToro", {
     defaults: { 
         updateInterval: 5 * 60 * 1000,
-        header: "eToro Portfolio" 
+        header: "eToro Portfolio",
+        showTotal: true
     },
     
     getStyles: function() { return ["MMM-eToro.css"]; },
@@ -46,7 +47,13 @@ Module.register("MMM-eToro", {
         table.appendChild(thead);
 
         const tbody = document.createElement("tbody");
+        let totalValue = 0;
+        let totalProfit = 0;
+
         this.portfolioData.forEach(item => {
+            totalValue += item.value;
+            totalProfit += item.profit;
+
             const row = document.createElement("tr");
             const pnlClass = item.profit >= 0 ? "positive" : "negative";
             const pnlSign = item.profit >= 0 ? "+" : "-";
@@ -64,8 +71,28 @@ Module.register("MMM-eToro", {
             `;
             tbody.appendChild(row);
         });
-
         table.appendChild(tbody);
+
+        if (this.config.showTotal) {
+            const tfoot = document.createElement("tfoot");
+            const totalPnlClass = totalProfit >= 0 ? "positive" : "negative";
+            const totalPnlSign = totalProfit >= 0 ? "+" : "-";
+            const totalCostBasis = totalValue - totalProfit;
+            const totalPerc = totalCostBasis !== 0 ? (totalProfit / totalCostBasis) * 100 : 0;
+
+            tfoot.innerHTML = `
+                <tr class="total-row">
+                    <td></td>
+                    <td class="bright">TOTAL</td>
+                    <td class="text-right bright">$${totalValue.toLocaleString(undefined, {minimumFractionDigits: 2})}</td>
+                    <td class="text-right ${totalPnlClass}">
+                        ${totalPnlSign}$${Math.abs(totalProfit).toLocaleString(undefined, {minimumFractionDigits: 2})}<br>
+                        <span class="percentage-text">(${totalPnlSign}${Math.abs(totalPerc).toFixed(2)}%)</span>
+                    </td>
+                </tr>`;
+            table.appendChild(tfoot);
+        }
+
         wrapper.appendChild(table);
         return wrapper;
     },

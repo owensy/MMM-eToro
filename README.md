@@ -45,6 +45,7 @@ Add the following to the modules array in your config/config.js file:
         apiKey: "YOUR_ETORO_API_KEY",
         userKey: "YOUR_ETORO_USER_KEY",
         demo: false,
+	showTotal: true,
         updateInterval: 600000
     }
 },
@@ -55,9 +56,10 @@ Add the following to the modules array in your config/config.js file:
 | Option | Default | Description |
 | :--- | :--- | :--- |
 | `apiKey` | `None` | **Required.** Your eToro Public API Key. |
-| `userKey` | `None` | **Required.** Your eToro User Key. Make sure this matches your `demo` setting. |
+| `userKey` | `None` | **Required.** Your eToro User Key. |
 | `demo` | `false` | Set to `true` if you are using your Virtual Portfolio/Demo account keys. |
-| `updateInterval` | `600000` | How often to fetch data (in ms). Default is 10 minutes (600,000ms). |
+| `updateInterval` | `600000` | How often to fetch data (in ms). Default is 10 minutes. |
+| `showTotal` | `true` | Set to `false` to hide the summary row at the bottom of the table. |
 
 ## CSS Styling
 Customize the look by editing MMM-eToro.css. It uses standard MagicMirror classes for a native look.

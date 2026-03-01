@@ -45,7 +45,6 @@
     text-align: right;
 }
 
-/* These classes now apply to the whole cell including the percentage */
 .etoro-table .positive {
     color: #4cd964;
 }
@@ -58,6 +57,15 @@
     font-size: 0.85em;
     display: block;
     margin-top: -2px;
-    color: inherit; /* This ensures it turns green/red like the value above it */
-    opacity: 0.8;   /* Optional: keeps it slightly softer than the main number */
+    color: inherit;
+    opacity: 0.8;
+}
+
+.total-row {
+    border-top: 1px solid #444;
+}
+
+.total-row td {
+    padding-top: 10px;
+    font-weight: bold;
 }
