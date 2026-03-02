@@ -1,6 +1,6 @@
 {
   "name": "MMM-eToro",
-  "version": "1.0.0",
+  "version": "1.1.1",
   "description": "MagicMirror² module to display eToro portfolio positions.",
   "repository": {
     "type": "git",
@@ -16,13 +16,14 @@
   "author": "owensy",
   "license": "MIT",
   "scripts": {
-    "lint": "eslint *.js",
-    "lint:fix": "eslint *.js --fix"
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "devDependencies": {
-    "eslint": "^9.0.0"
+    "eslint": "^10.0.2",
+    "globals": "^15.0.0"
   },
   "dependencies": {
-    "uuid": "^9.0.0"
+    "uuid": "^13.0.0"
   }
 }

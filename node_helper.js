@@ -1,4 +1,5 @@
 const NodeHelper = require("node_helper");
+// uuid v13 maintains named exports for CommonJS, but ensures best auditability
 const { v4: uuidv4 } = require("uuid");
 
 module.exports = NodeHelper.create({
@@ -12,7 +13,7 @@ module.exports = NodeHelper.create({
         const headers = {
             "x-api-key": config.apiKey,
             "x-user-key": config.userKey,
-            "x-request-id": uuidv4(),
+            "x-request-id": uuidv4(), // Standard usage remains the same
             "Accept": "application/json"
         };
 

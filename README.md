@@ -22,7 +22,7 @@ A MagicMirror² module to display your eToro portfolio summary, including total 
 ## Installation
 
 ```bash
-cd ~/MagicMirror/modules && git clone [https://github.com/owensy/MMM-eToro.git](https://github.com/owensy/MMM-eToro.git) && cd MMM-eToro && npm install
+cd ~/MagicMirror/modules && git clone https://github.com/owensy/MMM-eToro.git && cd MMM-eToro && npm install
 ```
 
 ## Update
