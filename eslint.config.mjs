@@ -1,16 +1,16 @@
 import js from "@eslint/js";
 import globals from "globals";
+import { defineConfig } from "eslint/config";
 
-export default [
+export default defineConfig([
   js.configs.recommended,
   {
     languageOptions: {
       ecmaVersion: "latest",
-      sourceType: "module", // Required for modern Flat Config
+      sourceType: "module",
       globals: {
         ...globals.browser,
         ...globals.node,
-        // Custom MagicMirror Globals to prevent "not defined" errors
         Module: "readonly",
         Log: "readonly",
         MM: "readonly",
@@ -19,8 +19,8 @@ export default [
       }
     },
     rules: {
-      "no-console": "off", // Allows console.error in node_helper
-      "no-unused-vars": ["error", { "argsIgnorePattern": "^notification" }] // Ignores MM's standard unused vars
+      "no-console": "off",
+      "no-unused-vars": ["error", { "argsIgnorePattern": "^notification" }]
     }
   }
-];
+]);

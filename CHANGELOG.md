@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.2] - 2026-03-03
+### Fixed
+- **Linter Binary Resolution:** Fixed an issue where the `eslint` command was not properly linked in specific environments (Docker/VM).
+- **ESLint Configuration:** Refactored `eslint.config.mjs` to use the recommended `defineConfig` helper for better stability.
+
+### Changed
+- **Strict Dependency Mapping:** Explicitly added `@eslint/js` and updated `globals` to v17.4.0 in `package.json` to satisfy automated module scanners.
+- **Optimized Lint Script:** Streamlined the `npm run lint` command to follow ESLint 10 "Flat Config" best practices.
+
 ## [1.1.1] - 2026-03-02
 ### Changed
 - **Linter Migration:** Successfully migrated to the modern ESLint 10 "Flat Config" (`eslint.config.mjs`) for 2026 standards.
