@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.3] - 2026-03-04
+### Changed
+- **Strict Package Compliance:** Updated `package.json` to meet 2026 standards (Lowercase name, ESM type, and explicit exports).
+- **Metadata:** Added `files` and `sideEffects` fields for better optimization and linter compliance.
+
 ## [1.1.2] - 2026-03-03
 ### Fixed
 - **Linter Binary Resolution:** Fixed an issue where the `eslint` command was not properly linked in specific environments (Docker/VM).
