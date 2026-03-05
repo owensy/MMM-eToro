@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.4] - 2026-03-05
+### Changed
+- **Optimized Package Metadata:** Removed redundant file declarations (`README.md`, `LICENSE`, and main entry) from `package.json` to align with strict npm 2026 standards.
+- **Cleaned Manifest:** Simplified the `files` array to only include non-default assets (CSS, helper, and translations).
+
 ## [1.1.3] - 2026-03-04
 ### Changed
 - **Strict Package Compliance:** Updated `package.json` to meet 2026 standards (Lowercase name, ESM type, and explicit exports).
