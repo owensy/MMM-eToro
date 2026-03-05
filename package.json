@@ -8,12 +8,9 @@
     ".": "./MMM-eToro.js"
   },
   "files": [
-    "MMM-eToro.js",
     "MMM-eToro.css",
     "node_helper.js",
-    "translations",
-    "README.md",
-    "LICENSE"
+    "translations"
   ],
   "sideEffects": [
     "*.css"
