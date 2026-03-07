@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.6] - 2026-03-07
+### Changed
+- **Linter Compliance:** Explicitly defined `"type": "commonjs"` in `package.json` to satisfy 2026 standards while maintaining MagicMirror core compatibility.
+- **Dependency Update:** Upgraded `eslint` to `^10.0.3`.
+- **Cleanup:** Removed redundant file declarations in `package.json` manifest.
+
 ## [1.1.5] - 2026-03-06
 ### Added
 - **Full ESM Migration:** Converted `node_helper.js` to modern ES Module syntax.
